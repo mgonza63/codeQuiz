@@ -29,16 +29,14 @@ var questions = [
       choices: ["JavaScript", "for loops", "console log", "terminal"],
       answer: "console log"
     },
-    {
-      title: "The condition in an if / else statement is enclosed within ____.",
-      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-      answer: "parentheses"
-    },
   ];
 
 var main = document.querySelector("main");
 
 var currentQuestion = 0;
+
+var timer = document.querySelector("#timer");
+var counter = 75;
 
 var nextQuestion = function() {
     main.innerHTML = "";
@@ -81,4 +79,22 @@ main.addEventListener("click", function(e) {
         currentQuestion++;
         nextQuestion();
     }
-})
+    if (targetedClick.textContent === "Start Quiz!") {
+        console.log("the quiz has started");
+        startTimer();
+    }
+});
+function startTimer() {
+    setInterval(timeIt, 1000);
+}
+function timeIt() {
+    counter--;
+    timer.textContent = counter;
+
+}
+
+
+
+
+
+

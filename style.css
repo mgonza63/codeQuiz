@@ -9,3 +9,8 @@
     max-width: 800px;
     padding: 30px 40px;
 }
+p {
+    text-align: right;
+    padding: 10px;
+    float: right;
+}
