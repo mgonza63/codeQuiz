@@ -30,9 +30,9 @@ var questions = [
       answer: "console log"
     },
     {
-      title: "Congratulations you finished the quiz your score was " + counter ,
-      choices: ["Start Again?"],
-      answer: "Start Again?"
+      title: "Congratulations you finished the quiz" ,
+      choices: [],
+      answer: ""
     },
   ];
 
@@ -44,7 +44,7 @@ var currentQuestion = 0;
 
 var timer = document.querySelector("#timer");
 var counter = 75;
-
+var interval;
 
 
 var nextQuestion = function() {
@@ -75,7 +75,34 @@ var nextQuestion = function() {
         main.append(div);
         
     });
-}
+    if (counter <= 0) {
+      
+      main.innerHTML = "";
+
+
+      var timeDiv = document.createElement("div");
+    
+      var timeHOne = document.createElement("h1");
+      timeHOne.textContent = "Time's up!";
+      clearInterval(interval);
+    
+      timeDiv.append(timeHOne);
+      main.append(timeDiv);
+      return;
+
+    };
+    if (currentQuestion === 6) {
+      console.log("congrats you finished!");
+      clearInterval(interval);
+
+      createScore();
+      highscores();
+
+    };
+
+    
+    };
+
 
 nextQuestion();
 
@@ -108,23 +135,53 @@ main.addEventListener("click", function () {
         startTimer();
     };
 
-    });
+
 function startTimer() {
-    setInterval(timeIt, 1000);
+    interval = setInterval(timeIt, 1000);
+    
 
 }
 function timeIt() {
     counter--;
     timer.textContent = counter;
-
-    }
-
-
+    };
+  })
 
 
+function highscores() {
+  var div = document.createElement("div");
+  var hTwo = document.createElement("h2");
+  var input = document.createElement("input");
+  var button = document.createElement("button");
+  hTwo.textContent = "Enter your Initials: ";
+
+  div.append(hTwo);
+  div.append(input);
+  div.append(button);
+  main.append(div);
+
+  var scores = document.createElement("li");
+  button.addEventListener("click", function() {
+    scores.append(input, counter);
+  })
+  div.append(scores);
+
+  window.localStorage.setItem('highscores', JSON.stringify(scores));
+  
+}
+
+function createScore() {
+  var div = document.createElement("div");
+
+  var hOne = document.createElement("h1");
+  hOne.textContent = "Your score was " + counter;
+
+  div.append(hOne);
+  main.append(div);
 
 
+}
 
 
-
+console.log(localStorage);
 
