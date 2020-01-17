@@ -2,7 +2,7 @@ var questions = [
     {
       title: "This is a multiple choice quiz that is going to test you on your coding abilities",
       choices: ["Start Quiz!"],
-      answer: "alerts"
+      answer: "Start Quiz!"
     },
     {
       title: "Commonly used data types DO NOT include:",
@@ -29,7 +29,14 @@ var questions = [
       choices: ["JavaScript", "for loops", "console log", "terminal"],
       answer: "console log"
     },
+    {
+      title: "Congratulations you finished the quiz your score was " + counter ,
+      choices: ["Start Again?"],
+      answer: "Start Again?"
+    },
   ];
+
+
 
 var main = document.querySelector("main");
 
@@ -37,6 +44,8 @@ var currentQuestion = 0;
 
 var timer = document.querySelector("#timer");
 var counter = 75;
+
+
 
 var nextQuestion = function() {
     main.innerHTML = "";
@@ -46,12 +55,12 @@ var nextQuestion = function() {
 
         if (currentQuestion != indexQuiz) {
             div.setAttribute("class", "hide");
-        }
+        };
 
         var hOne = document.createElement("h1");
         hOne.textContent = quiz.title;
 
-        var ul =  document.createElement("ul");
+        var ul = document.createElement("ul");
 
         quiz.choices.forEach(function(multipleChoice) {
             var li = document.createElement("li");
@@ -64,34 +73,55 @@ var nextQuestion = function() {
         div.append(ul);
 
         main.append(div);
+        
     });
 }
 
 nextQuestion();
 
-main.addEventListener("click", function(e) {
 
-    var targetedClick =  event.target;
+
+main.addEventListener("click", function () {
+
+    var targetedClick = event.target;
 
     if(targetedClick.matches("li")) {
 
+      if (targetedClick.textContent === questions[currentQuestion].answer) {
+
+        console.log("correct!");
+      }
+      
+      else {
+        counter -= 15;
+        console.log("incorrect");
+      };
         console.log(targetedClick.textContent);
         currentQuestion++;
+        console.log("Answer for question # " + currentQuestion + " is " + questions[currentQuestion].answer);
         nextQuestion();
+        
+        
     }
     if (targetedClick.textContent === "Start Quiz!") {
         console.log("the quiz has started");
         startTimer();
-    }
-});
+    };
+
+    });
 function startTimer() {
     setInterval(timeIt, 1000);
+
 }
 function timeIt() {
     counter--;
     timer.textContent = counter;
 
-}
+    }
+
+
+
+
 
 
 
